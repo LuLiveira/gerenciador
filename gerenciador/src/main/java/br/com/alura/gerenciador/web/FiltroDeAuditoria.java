@@ -24,9 +24,10 @@ public class FiltroDeAuditoria implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
-		String uri = req.getRequestURI();
-		String usuario = getUsuario(req);
-		System.out.println("Usuario: " + usuario + " acessando a URI: " + uri);
+		//String uri = req.getRequestURI();
+		//String usuario = getUsuario(req);
+		//Incurtando o código
+		System.out.println("Usuario: " + getUsuario(req) + " acessando a URI: " + req.getRequestURI());
 
 		chain.doFilter(request, response);
 
