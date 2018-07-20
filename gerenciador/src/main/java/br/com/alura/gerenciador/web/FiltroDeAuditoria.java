@@ -9,9 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.com.alura.gerenciador.Usuario;
 
 @WebFilter(urlPatterns = "/*")
 public class FiltroDeAuditoria implements Filter {
@@ -40,13 +41,17 @@ public class FiltroDeAuditoria implements Filter {
 	// METODO getUsuario
 	private String getUsuario(HttpServletRequest req, HttpServletResponse resp) {
 
-		Cookie cookie = new Cookies(req.getCookies()).buscaUsuarioLogado();
-		if (cookie == null) {
-			return "<deslogado>";
+//		Cookie cookie = new Cookies(req.getCookies()).buscaUsuarioLogado();
+//		if (cookie == null) {
+//			return "<deslogado>";
+//		}
+//		cookie.setMaxAge(10 * 60);
+//		resp.addCookie(cookie);
+		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario.logado");
+		if(usuario == null){
+			return "<Deslogado>";
 		}
-		cookie.setMaxAge(10 * 60);
-		resp.addCookie(cookie);
-		return cookie.getValue();
+		return usuario.getEmail();
 	}
 
 	@Override

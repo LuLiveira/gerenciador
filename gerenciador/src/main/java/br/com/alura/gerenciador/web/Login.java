@@ -5,10 +5,10 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.alura.gerenciador.Usuario;
 import br.com.alura.gerenciador.dao.UsuarioDAO;
@@ -31,11 +31,13 @@ public class Login extends HttpServlet {
 			writer.println("<html> <body> Usuario invalido </body> </html>");
 		}else {
 			//cria um cookie para o usuario com nome de usuario.logado fazendo referencia ao usuario.getEmail();
-			Cookie cookie = new Cookie("usuario.logado", usuario.getEmail());
+				//Cookie cookie = new Cookie("usuario.logado", usuario.getEmail());
 			//seta uma idade em segundos para o cookie durar no caso 10 minutos
-			cookie.setMaxAge(10 * 60);
+				//cookie.setMaxAge(10 * 60);
 			//responde o cookie para o usuario ou seja, envia o cookie ao usuario
-			resp.addCookie(cookie);
+				//resp.addCookie(cookie);
+			HttpSession session = req.getSession();
+			session.setAttribute("usuario.logado", usuario);
 			writer.println("<html><body>Usuario logado: " + usuario.getEmail() + "</body></html>");
 		}
 	}
