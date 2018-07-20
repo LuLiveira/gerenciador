@@ -38,8 +38,9 @@ public class Login extends HttpServlet {
 			//responde o cookie para o usuario ou seja, envia o cookie ao usuario
 				//resp.addCookie(cookie);
 			HttpSession session = req.getSession();
-			session.setAttribute("usuario.logado", usuario);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/paginas/login.html");
+			session.setAttribute("usuarioLogado", usuario);
+			req.setAttribute("usuario", usuario);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/paginas/login.jsp");
 			dispatcher.forward(req, resp);
 		}
 	}

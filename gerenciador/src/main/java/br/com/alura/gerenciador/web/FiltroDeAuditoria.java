@@ -47,7 +47,7 @@ public class FiltroDeAuditoria implements Filter {
 //		}
 //		cookie.setMaxAge(10 * 60);
 //		resp.addCookie(cookie);
-		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario.logado");
+		Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioLogado");
 		if(usuario == null){
 			return "<Deslogado>";
 		}
