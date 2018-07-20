@@ -3,6 +3,7 @@ package br.com.alura.gerenciador.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +26,10 @@ public class Login extends HttpServlet {
 		
 		Usuario usuario = new UsuarioDAO().buscaPorEmailESenha(email, senha);
 		
-		PrintWriter writer = resp.getWriter();
 		if(usuario == null){
-			
-			writer.println("<html> <body> Usuario invalido </body> </html>");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/paginas/loginInvalido.html");
+			dispatcher.forward(req, resp);
+
 		}else {
 			//cria um cookie para o usuario com nome de usuario.logado fazendo referencia ao usuario.getEmail();
 				//Cookie cookie = new Cookie("usuario.logado", usuario.getEmail());
@@ -38,7 +39,8 @@ public class Login extends HttpServlet {
 				//resp.addCookie(cookie);
 			HttpSession session = req.getSession();
 			session.setAttribute("usuario.logado", usuario);
-			writer.println("<html><body>Usuario logado: " + usuario.getEmail() + "</body></html>");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/paginas/login.html");
+			dispatcher.forward(req, resp);
 		}
 	}
 }
